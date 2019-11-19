@@ -5,4 +5,7 @@
     * started development log
     * Cloned repository
     * Generated OFX files
-    * created basic README.md
+    * Created basic README.md
+    * Obtained API keys
+    * Set up JSON library header file
+    * Included ofxGraph addon
