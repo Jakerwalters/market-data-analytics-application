@@ -1,1 +1,3 @@
+ofxGraph-master
 ofxGui
+ofxXmlSettings
