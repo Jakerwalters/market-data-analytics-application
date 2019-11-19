@@ -7,7 +7,6 @@ using json = nlohmann::json;
 #define DISPLAY_MODE OF_WINDOW  // Can be OF_WINDOW or OF_FULLSCREEN
 
 int main() {
-	
 	json j;
 
 	ofSetupOpenGL(640, 480, DISPLAY_MODE);  // setup the GL context
