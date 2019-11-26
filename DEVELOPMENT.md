@@ -17,3 +17,8 @@
     * Found out how to obtain http data using libcurl library
     * Found out how to link libcurl in project
     * Used libcurl to query the demo data for the web APIs I will be using
+
+* **11/25/19** Successfully added testing functionality and began UI design
+    * Used piazza post to get catch finally working with project
+    * Copied over project proposal to this repository
+    * Began sketching preliminary designs for the dashboard UI
