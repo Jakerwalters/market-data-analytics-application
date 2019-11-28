@@ -22,3 +22,8 @@
     * Used piazza post to get catch finally working with project
     * Copied over project proposal to this repository
     * Began sketching preliminary designs for the dashboard UI
+
+* **11/27/19** Research libcurl commands and file processing
+    * Add example ofxGraph to test functionality
+    * Decided to use a system which will request JSON, save it in a file, and read the file to parse the JSON
+    * Tested functionality for executing a curl GET request and saving the content in a file
