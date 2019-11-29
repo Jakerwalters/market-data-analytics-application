@@ -23,7 +23,14 @@
     * Copied over project proposal to this repository
     * Began sketching preliminary designs for the dashboard UI
 
-* **11/27/19** Research libcurl commands and file processing
+* **11/27/19** Researched libcurl commands and file processing
     * Add example ofxGraph to test functionality
     * Decided to use a system which will request JSON, save it in a file, and read the file to parse the JSON
     * Tested functionality for executing a curl GET request and saving the content in a file
+
+* **11/28/19** Researched gui design 
+    * Found out that ofxGui is severely lacking key features I need for my project
+    * Decided to use ofxDatGui addon which provides much richer gui elements to work with
+    * Read through a lot of ofxDatGui documentation
+    * Found out that ofxDatGui uses something called "panels" as the main basis for building GUIs
+    * Sketched new designs which I will be able to implement using ofxDatGui
