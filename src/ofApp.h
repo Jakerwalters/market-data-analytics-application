@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxGraph.h"
+#include "ofxDatGui.h"
 
 class ofApp : public ofBaseApp{
 
@@ -22,6 +23,4 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
-	ofxGraph graph;
-	ofxGraph graph_multiplot;
 };
