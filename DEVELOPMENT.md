@@ -34,3 +34,8 @@
     * Read through a lot of ofxDatGui documentation
     * Found out that ofxDatGui uses something called "panels" as the main basis for building GUIs
     * Sketched new designs which I will be able to implement using ofxDatGui
+
+* **12/3/19** Continued work with API requests
+    * Found out that OpenFrameworks has a built in util for nlohmann JSON and libcurl which are much easier to use
+    * Simplified my HTTP GET requests down to 3 lines of code 
+    * Spent many hours trying to get the JSON to deserialize properly with no success, I will have to go to office hours for this most likely 
