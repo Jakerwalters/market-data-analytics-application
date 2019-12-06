@@ -39,3 +39,8 @@
     * Found out that OpenFrameworks has a built in util for nlohmann JSON and libcurl which are much easier to use
     * Simplified my HTTP GET requests down to 3 lines of code 
     * Spent many hours trying to get the JSON to deserialize properly with no success, I will have to go to office hours for this most likely 
+    
+* **12/5/19** Began implementation of gui and more work with API requests
+    * Created simple gui to take a user's input for a ticker with a button to execute an API request and a button to clear
+    * Set up a custom header file for handling API requests and JSON parsing so I can make simple calls to a couple methods when I want to display data in my gui
+    * My next goals are to write a few tests for my API requests, begin displaying my parsed data in my gui, and begin creation of graphs using ofxGraph
