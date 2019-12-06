@@ -44,3 +44,9 @@
     * Created simple gui to take a user's input for a ticker with a button to execute an API request and a button to clear
     * Set up a custom header file for handling API requests and JSON parsing so I can make simple calls to a couple methods when I want to display data in my gui
     * My next goals are to write a few tests for my API requests, begin displaying my parsed data in my gui, and begin creation of graphs using ofxGraph
+    
+* **12/6/19** Test writing and repo cleanup
+    * Discovered that my testing target and testing files were somehow deleted from my project and wouldn't pull correctly from the repository
+    * Recreated the testing target and files with many complications due to Xcode's file management system
+    * Wrote simple tests for executing data requests to World Trading Data API
+    * Deleted the many useless files from earlier accidental duplicate commits and mysteriously deleted testing target
