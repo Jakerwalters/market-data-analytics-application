@@ -22,5 +22,16 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+	
+		ofTrueTypeFont font;
+		
+		vector<ofxDatGuiComponent*> components;
+		ofxDatGuiTextInput* ticker_input;
+		ofxDatGuiButton* search_button;
+		ofxDatGuiButton* clear_button;
+		ofxDatGuiLabel* output_label;
+	
+		void onButtonEvent(ofxDatGuiButtonEvent e);
+		void onTextInputEvent(ofxDatGuiTextInputEvent e);
 		
 };
