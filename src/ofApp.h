@@ -4,6 +4,7 @@
 #include "ofxGraph.h"
 #include "ofxDatGui.h"
 #include "main_menu.hpp"
+#include "data_panel.hpp"
 
 class ofApp : public ofBaseApp{
 
@@ -24,20 +25,8 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 	
-		ofTrueTypeFont font;
-		
-		ofxDatGui* stock_gui;
-		ofxDatGuiFolder* stock_folder;
-		vector<ofxDatGuiComponent*> components;
-		ofxDatGuiTextInput* ticker_input;
-		ofxDatGuiButton* search_button;
-		ofxDatGuiButton* clear_button;
-		ofxDatGuiLabel* output_label;
-	
-		void onButtonEvent(ofxDatGuiButtonEvent e);
-		void onTextInputEvent(ofxDatGuiTextInputEvent e);
-	
 		MenuGui menu = MenuGui();
-	
-		
+		DataPanel left_panel = DataPanel();
+		//DataPanel center_panel = DataPanel();
+		//DataPanel right_panel = DataPanel();
 };

@@ -8,7 +8,12 @@
 
 int main() {
 	// setup the GL context
-	ofSetupOpenGL(640, 480, DISPLAY_MODE);
+	//ofSetupOpenGL(640, 480, DISPLAY_MODE);
+	
+	ofGLFWWindowSettings settings;
+	settings.resizable = false;
+	settings.setSize(400, 720);
+	ofCreateWindow(settings);
 
 	// this kicks off the running of my app
 	ofRunApp(new ofApp());
