@@ -13,7 +13,6 @@
 * **11/19/19** Continued project setup and tested demo data acqusition
     * Added Catch2 hpp file to project
     * Created new target for running tests, but there is a problem with libraries not found
-        * will ask about this in office hours tomorrow
     * Found out how to obtain http data using libcurl library
     * Found out how to link libcurl in project
     * Used libcurl to query the demo data for the web APIs I will be using
@@ -50,3 +49,9 @@
     * Recreated the testing target and files with many complications due to Xcode's file management system
     * Wrote simple tests for executing data requests to World Trading Data API
     * Deleted the many useless files from earlier accidental duplicate commits and mysteriously deleted testing target
+    
+* **12/7/19** Gui design and implementation
+    * Decided to implement a panel based gui which will consist of multiple panels of information
+    * Found out that dynamic creation and deletion of components is not supported by my gui library, so I will have to work around this by utilizing the ability to hide and display panels as separate gui's
+    * Created different classes and header files for loading in different types of custom gui's, right now I have built the main menu and the information panels
+    * Experimented with various layouts of my panels and window sizing to see what I think works best, but ultimately decided on fixing the screen dimensions
