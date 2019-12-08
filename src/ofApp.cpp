@@ -1,5 +1,6 @@
 #include "ofApp.h"
-#include <string>
+#include "data_request.hpp"
+#include "main_menu.hpp"
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -11,7 +12,21 @@ void ofApp::setup(){
 	ofSetWindowShape(1920, 1080);
 	font.load("ofxbraitsch/fonts/Verdana.ttf", 24);
 	
+	stock_folder = new ofxDatGuiFolder("color picker", ofColor::fromHex(0x2FA1D6));
+	
+	menu.SetupMenuGui();
+	
+	// Setup stock gui
+	stock_gui = new ofxDatGui(ofxDatGuiAnchor::TOP_LEFT);
+	stock_gui->setTheme(new ofxDatGuiThemeSmoke());
+	stock_gui->addHeader("Drag me to reposition");
+	stock_gui->addFooter();
+	stock_gui->getFooter()->setLabelWhenExpanded("CLOSE PANEL 1");
+	stock_gui->getFooter()->setLabelWhenCollapsed("EXPAND PANEL 1");
+	
 	// Create a new text input to enter a ticker to search for
+	stock_gui->addTextInput("ticker input", "enter a ticker here");
+	
 	ticker_input = new ofxDatGuiTextInput("ticker input", "enter a ticker here");
 	ticker_input->setFocused(true);
 	ticker_input->setPosition(x, y);
@@ -19,6 +34,9 @@ void ofApp::setup(){
 	components.push_back(ticker_input);
 	
 	// Create a new button to trigger an API request for the ticker entered
+	stock_gui->addButton("Help");
+	stock_gui->onButtonEvent(this, &ofApp::onButtonEvent);
+	
 	y += ticker_input->getHeight() + p;
 	search_button = new ofxDatGuiButton("Search");
 	search_button->setPosition(x, y);
@@ -37,10 +55,6 @@ void ofApp::setup(){
 	output_label = new ofxDatGuiLabel("");
 	output_label->setPosition(x, y);
 	components.push_back(output_label);
-	
-	for(int i=0; i<components.size(); i++) {
-		
-	}
 }
 
 //--------------------------------------------------------------
@@ -115,19 +129,32 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
 {
 	if (e.target == search_button){
-		search_button->setLabel("Search Clicked");
 		output_label->ofxDatGuiComponent::setWidth(output_label->getWidth() + ticker_input->getText().length(), ticker_input->getText().length());
-		output_label->setLabel(ticker_input->getText());
+		
+		// Execute a data request for the ticker entered by the user
+		std::string api_key = "1bMckVuNko95sGvwrTiHHzSLssOpx6MIKtdufXvbLeKAMfwrNje9QFjjwTl5";
+		std::string file_path = "/Users/jakewalters/documents/FantasticFinaleProject/fantastic-finale-Jakerwalters/bin/datafile.json";
+		std::map<std::string, std::string> values = ObtainAllTickerValues(api_key, ticker_input->getText(), file_path);
+		
+		// Output the data to the output label
+		std::string output;
+		
+		for (auto itr = values.begin(); itr != values.end(); itr++) {
+			output += itr->first + ": " + itr->second + "\n";
+		}
+		
+		output_label->setLabel(output);
 	} else if (e.target == clear_button) {
-		clear_button->setLabel("Clear Clicked");
 		ticker_input->setText("");
 		output_label->setLabel("");
+	} else if (e.target == stock_gui->getButton("help")) {
+		output_label->setLabel("gui button clicked");
 	}
+	
+	std::cout << e.target->getLabel() << std::endl;
 }
 
 void ofApp::onTextInputEvent(ofxDatGuiTextInputEvent e)
 {
-	if (e.target == ticker_input) {
-		
-	}
+	
 }

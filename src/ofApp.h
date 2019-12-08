@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxGraph.h"
 #include "ofxDatGui.h"
+#include "main_menu.hpp"
 
 class ofApp : public ofBaseApp{
 
@@ -25,6 +26,8 @@ class ofApp : public ofBaseApp{
 	
 		ofTrueTypeFont font;
 		
+		ofxDatGui* stock_gui;
+		ofxDatGuiFolder* stock_folder;
 		vector<ofxDatGuiComponent*> components;
 		ofxDatGuiTextInput* ticker_input;
 		ofxDatGuiButton* search_button;
@@ -33,5 +36,8 @@ class ofApp : public ofBaseApp{
 	
 		void onButtonEvent(ofxDatGuiButtonEvent e);
 		void onTextInputEvent(ofxDatGuiTextInputEvent e);
+	
+		MenuGui menu = MenuGui();
+	
 		
 };
