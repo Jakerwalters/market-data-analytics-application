@@ -20,7 +20,9 @@ public:
 	/*
 	 * method for setting up the gui
 	 */
-	void SetupDataPanelGui();
+	void SetupDataPanelGui(int x, int y);
+	void DrawPanel();
+	void UpdatePanel();
 	
 	// Event listeners
 	void OnDropdownEvent(ofxDatGuiDropdownEvent e);
@@ -32,7 +34,14 @@ public:
 	ofxDatGuiTextInput* ticker_input;
 	ofxDatGuiButton* search_button;
 	ofxDatGuiButton* clear_button;
-	ofxDatGuiLabel* info_label;
+	ofxDatGuiLabel* name_label;
+	ofxDatGuiLabel* price_label;
+	ofxDatGuiLabel* day_high_label;
+	ofxDatGuiLabel* day_low_label;
+	ofxDatGuiLabel* year_high_label;
+	ofxDatGuiLabel* year_low_label;
+	ofxDatGuiLabel* day_change_label;
+	ofxDatGuiLabel* day_change_pct_label;
 	
 private:
 	std::string ticker_type_;

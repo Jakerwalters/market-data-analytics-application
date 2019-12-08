@@ -27,6 +27,8 @@ class ofApp : public ofBaseApp{
 	
 		MenuGui menu = MenuGui();
 		DataPanel left_panel = DataPanel();
-		//DataPanel center_panel = DataPanel();
-		//DataPanel right_panel = DataPanel();
+		DataPanel center_panel = DataPanel();
+		DataPanel right_panel = DataPanel();
+	
+		ofxGraph graph;
 };
