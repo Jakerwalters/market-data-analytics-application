@@ -55,3 +55,9 @@
     * Found out that dynamic creation and deletion of components is not supported by my gui library, so I will have to work around this by utilizing the ability to hide and display panels as separate gui's
     * Created different classes and header files for loading in different types of custom gui's, right now I have built the main menu and the information panels
     * Experimented with various layouts of my panels and window sizing to see what I think works best, but ultimately decided on fixing the screen dimensions
+    
+* **12/8/19** More gui design and implementation
+    * Created custom headers and classes to create instances of custom gui panels to allow for easy creation of multiple panels with reduced code
+    * Figured out how to combine the graph with my gui to successfully hide and shift it when the user interacts with the data panel
+    * Had to make additions to ofxDatGui component files to figure out if components of the panel were expanded or collapsed
+    * The next steps are to populate the graphs with real data, add more methods to the data request header, and start incorporating news stories into the gui
