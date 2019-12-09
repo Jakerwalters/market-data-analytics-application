@@ -5,6 +5,7 @@
 #include "ofxDatGui.h"
 #include "main_menu.hpp"
 #include "data_panel.hpp"
+#include "financial_graph.hpp"
 
 class ofApp : public ofBaseApp{
 
@@ -29,6 +30,4 @@ class ofApp : public ofBaseApp{
 		DataPanel left_panel = DataPanel();
 		DataPanel center_panel = DataPanel();
 		DataPanel right_panel = DataPanel();
-	
-		ofxGraph graph;
 };

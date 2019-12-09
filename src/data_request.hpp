@@ -27,3 +27,5 @@ std::string ObtainTickerValue(std::string api_key, std::string ticker, std::stri
  * Function for obtaining all data values from a ticker
  */
 std::map<std::string, std::string> ObtainAllTickerValues(std::string api_key, std::string ticker, std::string file_path);
+
+

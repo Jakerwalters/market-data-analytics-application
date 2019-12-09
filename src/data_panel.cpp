@@ -11,6 +11,7 @@
 DataPanel::DataPanel() {
 	// Set the ticker type to stock by default
 	this->ticker_type_ = "Stock";
+	this->expanded_ = true;
 }
 
 void DataPanel::SetupDataPanelGui(int x, int y) {
@@ -64,6 +65,10 @@ void DataPanel::SetupDataPanelGui(int x, int y) {
 	data_panel_gui->addBreak();
 	day_change_pct_label = data_panel_gui->addLabel("Day Change %: ");
 	data_panel_gui->addBreak();
+	
+	// Create graph to visualize information
+	fin_graph = new FinancialGraph();
+	fin_graph->SetupFinancialGraph(x + 10, 150, 380, 190);
 }
 
 void DataPanel::OnDropdownEvent(ofxDatGuiDropdownEvent e) {
@@ -80,9 +85,10 @@ void DataPanel::OnDropdownEvent(ofxDatGuiDropdownEvent e) {
 void DataPanel::OnButtonEvent(ofxDatGuiButtonEvent e) {
 	if (e.target == search_button && this->ticker_type_ == "Stock") {
 		// Execute a data request for the ticker entered by the user
-		std::string api_key = "";
+		std::string api_key = "1bMckVuNko95sGvwrTiHHzSLssOpx6MIKtdufXvbLeKAMfwrNje9QFjjwTl5";
 		std::string file_path = "/Users/jakewalters/documents/FantasticFinaleProject/fantastic-finale-Jakerwalters/bin/datafile.json";
 		std::map<std::string, std::string> values = ObtainAllTickerValues(api_key, ticker_input->getText(), file_path);
+		std::string user_input = ticker_input->getText();
 		
 		// Output the data to the output label
 		std::string output;
@@ -91,15 +97,14 @@ void DataPanel::OnButtonEvent(ofxDatGuiButtonEvent e) {
 			output += itr->first + ": " + itr->second + "\n";
 		}
 		
-		name_label->setLabel("Name: " + ObtainTickerValue(api_key, ticker_input->getText(), "name", file_path));
-		price_label->setLabel("Current Price: " + ObtainTickerValue(api_key, ticker_input->getText(), "price", file_path));
-		day_high_label->setLabel("Day High: " + ObtainTickerValue(api_key, ticker_input->getText(), "day_high", file_path));
-		day_low_label->setLabel("Day Low: " + ObtainTickerValue(api_key, ticker_input->getText(), "day_low", file_path));
-		year_high_label->setLabel("Year High: " + ObtainTickerValue(api_key, ticker_input->getText(), "52_week_high", file_path));
-		year_low_label->setLabel("Year Low: " + ObtainTickerValue(api_key, ticker_input->getText(), "52_week_low", file_path));
-		day_change_label->setLabel("Day Change $: " + ObtainTickerValue(api_key, ticker_input->getText(), "day_change", file_path));
-		day_change_pct_label->setLabel("Day Change %: " + ObtainTickerValue(api_key, ticker_input->getText(), "change_pct", file_path));
-		
+		name_label->setLabel("Name: " + ObtainTickerValue(api_key, user_input, "name", file_path));
+		price_label->setLabel("Current Price: " + ObtainTickerValue(api_key, user_input, "price", file_path));
+		day_high_label->setLabel("Day High: " + ObtainTickerValue(api_key, user_input, "day_high", file_path));
+		day_low_label->setLabel("Day Low: " + ObtainTickerValue(api_key, user_input, "day_low", file_path));
+		year_high_label->setLabel("Year High: " + ObtainTickerValue(api_key, user_input, "52_week_high", file_path));
+		year_low_label->setLabel("Year Low: " + ObtainTickerValue(api_key, user_input, "52_week_low", file_path));
+		day_change_label->setLabel("Day Change $: " + ObtainTickerValue(api_key, user_input, "day_change", file_path));
+		day_change_pct_label->setLabel("Day Change %: " + ObtainTickerValue(api_key, user_input, "change_pct", file_path));
 	} else if (e.target == clear_button) {
 		ticker_input->setText("");
 		name_label->setLabel("Name: ");
@@ -115,8 +120,21 @@ void DataPanel::OnButtonEvent(ofxDatGuiButtonEvent e) {
 
 void DataPanel::DrawPanel() {
 	data_panel_gui->draw();
+	fin_graph->DrawFinancialGraph();
 }
 
 void DataPanel::UpdatePanel() {
 	data_panel_gui->update();
+	
+	// Hide the graph when the gui is collapsed
+	if (data_panel_gui->getExpanded() && !panel_type_dropdown->getExpanded()) {
+		fin_graph->UpdateFinancialGraph(true, false);
+	} else if (data_panel_gui->getExpanded() && panel_type_dropdown->getExpanded()) {
+		// Shift graph down when panel type dropdown is expanded
+		fin_graph->UpdateFinancialGraph(true, true);
+	} else {
+		// Automatically close dropdown and hide graph when gui is collapsed
+		fin_graph->UpdateFinancialGraph(false, false);
+		panel_type_dropdown->collapse();
+	}
 }

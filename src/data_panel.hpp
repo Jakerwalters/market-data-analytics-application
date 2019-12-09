@@ -9,6 +9,7 @@
 
 #include "ofMain.h"
 #include "ofxDatGui.h"
+#include "financial_graph.hpp"
 
 class DataPanel {
 public:
@@ -18,7 +19,7 @@ public:
 	DataPanel();
 	
 	/*
-	 * method for setting up the gui
+	 * methods for setting up the gui
 	 */
 	void SetupDataPanelGui(int x, int y);
 	void DrawPanel();
@@ -43,6 +44,9 @@ public:
 	ofxDatGuiLabel* day_change_label;
 	ofxDatGuiLabel* day_change_pct_label;
 	
+	FinancialGraph* fin_graph;
+	
 private:
 	std::string ticker_type_;
+	bool expanded_;
 };
