@@ -68,3 +68,5 @@
     * Linked creation of the charts to the creation of the data panel so that they are created together
     * Added processes to handle expanding and collapsing of the data panel so that the chart collapses and shifts with the panel
     * Found out that with the free version of WorldTradingData the maximum number of intraday data requests a user can make to the API is 25 per day. This is a huge problem since I planned to initiate new requests every minute to obtain up to the minute accurate information. This means that I could potentially be making thousands of api requests in a single session. I will have to stop auto updating the chart in order to stay within my low request limit.
+    * Updated the proposal to accurately reflect my progress in the project
+    * Decided that I will have to move crypto support to a stretch goal since time is running short and technically stocks are the main focus of this application
