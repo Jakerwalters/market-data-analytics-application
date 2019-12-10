@@ -26,21 +26,23 @@ The project that I will be working on is a market data analytics platform. One o
   * Add ofxGraph and JSON for Modern C++ libraries to project
   * Obtain API keys 
   * Add ability to obtain market data for a specified ticker 
-  * Add ability to obtain market data for a specified coin
 * **Week 2**
   * Create main dashboard user interface 
-  * Create user interface to search for a ticker or coin
-  * Create user interface to display ticker or coin data
+  * Create user interface to search for a ticker 
+  * Create user interface to display ticker data
 * **Week 3**
+  * Continue to implement dashboard
+  * Implement functions for requesting and storing data for use from API
   * Implement functionality for chart generation from data
-  * Add ability to add and remove charts to dashboard
-  * Add ability to display related articles alongside ticker and coin information
 * **Week 4**
-  * Add login interface
-  * Implement functionality of login system
-  * Implement saving of data for specific users, ex: personal dashboard, or last viewed ticker/coin
+  * Add ability to view news articles related to a ticker from the dashboard
+  * Add more options to the charts
+  * Finalize implementation of user interface
   
 ### Stretch Goals
+#### Crypto Support
+Cryptocurrencies and stocks go hand in hand these days, so support for them would be great. However, this requires a lot of extra work as I will have to create even more functions for requesting data from the cryptocompare API. I will also have to create new functions for adding data to the charts because the data supplied by the API does not include the same points as those supplied by the WorldTradingData API I am using for stocks. Overall, this is something I would love to have in the application and I know I could definitely do it if I have the time.
+
 #### Use of a Database
 In order to implement the login system properly I need the ability to save usernames, password, and relavent account information. This is attainable through using text file IO, however this is definitely not ideal. I would rather use a database to store this information. However, my experience using databases is quite limited. Through limited research I have found that SQLite is a good option as it is a serverless database which means that it would be practical for the type of application that I am building. However, it seems a little tricky to use and I havent found much information regarding how to set it up with my specific development environment. 
 
