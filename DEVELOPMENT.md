@@ -61,3 +61,10 @@
     * Figured out how to combine the graph with my gui to successfully hide and shift it when the user interacts with the data panel
     * Had to make additions to ofxDatGui component files to figure out if components of the panel were expanded or collapsed
     * The next steps are to populate the graphs with real data, add more methods to the data request header, and start incorporating news stories into the gui
+    
+* **12/9/19** Chart creation, handling API requests, and more gui design
+    * Created a custom header and class for creating financial charts from intraday data
+    * Added a new API requests function to WorldTradingData for intraday data
+    * Linked creation of the charts to the creation of the data panel so that they are created together
+    * Added processes to handle expanding and collapsing of the data panel so that the chart collapses and shifts with the panel
+    * Found out that with the free version of WorldTradingData the maximum number of intraday data requests a user can make to the API is 25 per day. This is a huge problem since I planned to initiate new requests every minute to obtain up to the minute accurate information. This means that I could potentially be making thousands of api requests in a single session. I will have to stop auto updating the chart in order to stay within my low request limit.
