@@ -32,8 +32,6 @@ void FinancialGraph::DrawFinancialGraph() {
 }
 
 void FinancialGraph::UpdateFinancialGraph(bool gui_expanded, bool type_dropdown_expanded) {
-	fin_graph->add(ofRandom(-100,100));
-	
 	// Move the graph off screen to hide it if the gui is collapsed
 	if (gui_expanded && !type_dropdown_expanded) {
 		fin_graph->setPosition(x_position_, y_position_);
@@ -41,5 +39,14 @@ void FinancialGraph::UpdateFinancialGraph(bool gui_expanded, bool type_dropdown_
 		fin_graph->setPosition(x_position_, y_position_ + 54);
 	} else {
 		fin_graph->setPosition(-1000, -1000);
+	}
+}
+
+void FinancialGraph::DrawFinancialGraph(std::string api_key, std::string ticker, std::string file_path, int day_range, int time_interval, double open_price) {
+	std::map<std::string, std::string> values = ObtainTickerIntraday(api_key, ticker, file_path, day_range, time_interval);
+	fin_graph->add(0);
+	
+	for (auto itr = values.begin(); itr != values.end(); itr++) {
+		fin_graph->add((1 - (std::stod(itr->second) / open_price)) * 100);
 	}
 }

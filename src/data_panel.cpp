@@ -23,7 +23,7 @@ void DataPanel::SetupDataPanelGui(int x, int y) {
 	data_panel_gui->getFooter()->setLabelWhenExpanded("Minimize Data Panel");
 	data_panel_gui->getFooter()->setLabelWhenCollapsed("Maximize Data Panel");
 	data_panel_gui->addBreak();
-	data_panel_gui->setWidth(400);
+	data_panel_gui->setWidth(kPanelWidth_);
 	data_panel_gui->setAutoDraw(false);
 	
 	// Create dropdown menu for choosing to create a data panel for a stock or crypto
@@ -44,7 +44,7 @@ void DataPanel::SetupDataPanelGui(int x, int y) {
 	// Create a button to clear the data panel
 	clear_button = data_panel_gui->addButton("Clear");
   clear_button->onButtonEvent(this, &DataPanel::OnButtonEvent);
-	for (int index = 0; index < 50; index++) {
+	for (int index = 0; index < kGraphSpaces_; index++) {
 		data_panel_gui->addBreak();
 	}
 	
@@ -68,7 +68,11 @@ void DataPanel::SetupDataPanelGui(int x, int y) {
 	
 	// Create graph to visualize information
 	fin_graph = new FinancialGraph();
-	fin_graph->SetupFinancialGraph(x + 10, 150, 380, 190);
+	fin_graph->SetupFinancialGraph(x + 10, 150, kGraphWidth_, kGraphHeight_);
+	zero_axis = new ofPolyline();
+	zero_axis_left_ = x + 10;
+	zero_axis_right_ = x + 390;
+	ToggleGraphAxis(true, false);
 }
 
 void DataPanel::OnDropdownEvent(ofxDatGuiDropdownEvent e) {
@@ -85,26 +89,26 @@ void DataPanel::OnDropdownEvent(ofxDatGuiDropdownEvent e) {
 void DataPanel::OnButtonEvent(ofxDatGuiButtonEvent e) {
 	if (e.target == search_button && this->ticker_type_ == "Stock") {
 		// Execute a data request for the ticker entered by the user
-		std::string api_key = "1bMckVuNko95sGvwrTiHHzSLssOpx6MIKtdufXvbLeKAMfwrNje9QFjjwTl5";
+		std::string api_key = "demo";
 		std::string file_path = "/Users/jakewalters/documents/FantasticFinaleProject/fantastic-finale-Jakerwalters/bin/datafile.json";
-		std::map<std::string, std::string> values = ObtainAllTickerValues(api_key, ticker_input->getText(), file_path);
 		std::string user_input = ticker_input->getText();
 		
 		// Output the data to the output label
-		std::string output;
+//		name_label->setLabel("Name: " + ObtainTickerValue(api_key, user_input, "name", file_path));
+//		price_label->setLabel("Current Price: " + ObtainTickerValue(api_key, user_input, "price", file_path));
+//		day_high_label->setLabel("Day High: " + ObtainTickerValue(api_key, user_input, "day_high", file_path));
+//		day_low_label->setLabel("Day Low: " + ObtainTickerValue(api_key, user_input, "day_low", file_path));
+//		year_high_label->setLabel("Year High: " + ObtainTickerValue(api_key, user_input, "52_week_high", file_path));
+//		year_low_label->setLabel("Year Low: " + ObtainTickerValue(api_key, user_input, "52_week_low", file_path));
+//		day_change_label->setLabel("Day Change $: " + ObtainTickerValue(api_key, user_input, "day_change", file_path));
+//		day_change_pct_label->setLabel("Day Change %: " + ObtainTickerValue(api_key, user_input, "change_pct", file_path));
 		
-		for (auto itr = values.begin(); itr != values.end(); itr++) {
-			output += itr->first + ": " + itr->second + "\n";
-		}
+		//Draw the graph
+		std::string open_price_value = ObtainTickerValue(api_key, user_input, "price_open", file_path);
+		std::cout << "open price: " << open_price_value << std::endl;
+		double open_price = std::stod(open_price_value);
+		fin_graph->DrawFinancialGraph(api_key, user_input, file_path, 1, 1, open_price);
 		
-		name_label->setLabel("Name: " + ObtainTickerValue(api_key, user_input, "name", file_path));
-		price_label->setLabel("Current Price: " + ObtainTickerValue(api_key, user_input, "price", file_path));
-		day_high_label->setLabel("Day High: " + ObtainTickerValue(api_key, user_input, "day_high", file_path));
-		day_low_label->setLabel("Day Low: " + ObtainTickerValue(api_key, user_input, "day_low", file_path));
-		year_high_label->setLabel("Year High: " + ObtainTickerValue(api_key, user_input, "52_week_high", file_path));
-		year_low_label->setLabel("Year Low: " + ObtainTickerValue(api_key, user_input, "52_week_low", file_path));
-		day_change_label->setLabel("Day Change $: " + ObtainTickerValue(api_key, user_input, "day_change", file_path));
-		day_change_pct_label->setLabel("Day Change %: " + ObtainTickerValue(api_key, user_input, "change_pct", file_path));
 	} else if (e.target == clear_button) {
 		ticker_input->setText("");
 		name_label->setLabel("Name: ");
@@ -121,6 +125,7 @@ void DataPanel::OnButtonEvent(ofxDatGuiButtonEvent e) {
 void DataPanel::DrawPanel() {
 	data_panel_gui->draw();
 	fin_graph->DrawFinancialGraph();
+	zero_axis->draw();
 }
 
 void DataPanel::UpdatePanel() {
@@ -129,12 +134,29 @@ void DataPanel::UpdatePanel() {
 	// Hide the graph when the gui is collapsed
 	if (data_panel_gui->getExpanded() && !panel_type_dropdown->getExpanded()) {
 		fin_graph->UpdateFinancialGraph(true, false);
+		ToggleGraphAxis(true, false);
 	} else if (data_panel_gui->getExpanded() && panel_type_dropdown->getExpanded()) {
 		// Shift graph down when panel type dropdown is expanded
 		fin_graph->UpdateFinancialGraph(true, true);
+		ToggleGraphAxis(true, true);
 	} else {
 		// Automatically close dropdown and hide graph when gui is collapsed
 		fin_graph->UpdateFinancialGraph(false, false);
+		ToggleGraphAxis(false, false);
 		panel_type_dropdown->collapse();
+	}
+}
+
+void DataPanel::ToggleGraphAxis(bool panel_enabled, bool dropdown_enabled) {
+	if (panel_enabled && !dropdown_enabled) {
+		zero_axis->clear();
+		zero_axis->addVertex(zero_axis_left_, kGraphHeight_ + 50);
+		zero_axis->addVertex(zero_axis_right_, kGraphHeight_ + 50);
+	} else if (panel_enabled && dropdown_enabled) {
+		zero_axis->clear();
+		zero_axis->addVertex(zero_axis_left_, kGraphHeight_ + 104);
+		zero_axis->addVertex(zero_axis_right_, kGraphHeight_ + 104);
+	} else {
+		zero_axis->clear();
 	}
 }

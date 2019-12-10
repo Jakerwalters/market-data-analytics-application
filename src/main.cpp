@@ -3,6 +3,9 @@
 #include <iostream>
 #include <fstream>
 #include "data_request.hpp"
+#include <chrono>
+#include <ctime>
+#include "time.h"
 
 #define DISPLAY_MODE OF_WINDOW
 
@@ -14,7 +17,7 @@ int main() {
 	settings.resizable = false;
 	settings.setSize(1200, 800);
 	ofCreateWindow(settings);
-
+	
 	// this kicks off the running of my app
 	ofRunApp(new ofApp());
 }

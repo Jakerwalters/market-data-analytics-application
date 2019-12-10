@@ -24,6 +24,7 @@ public:
 	void SetupDataPanelGui(int x, int y);
 	void DrawPanel();
 	void UpdatePanel();
+	void ToggleGraphAxis(bool panel_enabled, bool dropdown_enabled);
 	
 	// Event listeners
 	void OnDropdownEvent(ofxDatGuiDropdownEvent e);
@@ -43,10 +44,16 @@ public:
 	ofxDatGuiLabel* year_low_label;
 	ofxDatGuiLabel* day_change_label;
 	ofxDatGuiLabel* day_change_pct_label;
-	
+	ofPolyline* zero_axis;
 	FinancialGraph* fin_graph;
 	
 private:
 	std::string ticker_type_;
 	bool expanded_;
+	int zero_axis_left_;
+	int zero_axis_right_;
+	const int kPanelWidth_ = 400;
+	const int kGraphSpaces_ = 50;
+	const int kGraphWidth_ = 380;
+	const int kGraphHeight_ = 190;
 };

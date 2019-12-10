@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
+#include <time.h>
 #include "ofURLFileLoader.h"
 #include "json.hpp"
 
@@ -28,4 +29,12 @@ std::string ObtainTickerValue(std::string api_key, std::string ticker, std::stri
  */
 std::map<std::string, std::string> ObtainAllTickerValues(std::string api_key, std::string ticker, std::string file_path);
 
+/*
+ * Function for obtaining intraday prices to graph for stocks
+ */
+std::map<std::string, std::string> ObtainTickerIntraday(std::string api_key, std::string ticker, std::string file_path, int day_range, int time_interval);
 
+/*
+ * Function for obtaining the current system date and time formatted to use for API requests
+ */
+std::string CurrentDateTime();
