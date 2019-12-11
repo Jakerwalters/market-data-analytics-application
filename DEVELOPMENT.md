@@ -74,7 +74,7 @@
 * **12/10/19** Support for news articles and Error handling
     * Added ability to request data from Stock News API for showing related news articles
     * Spent a long time trying to design a way to draw the thumbnail, article title, and article link in a nice way with very limited success
-    * Settled for a design that is functional but is definitely not ideal because it is not actually possible to click the link to the article, but I as far as I know hyperlinking is not possible in OpenFrameworks from a lot of research
+    * Settled for a design that is functional but is definitely not ideal because it is not actually possible to click the link to the article, but as far as I know hyperlinking is not possible in OpenFrameworks from a lot of research
     * Added security checks when attempting to use JSON data to prevent invalid inputs and stop the program from crashing
     * Tomorrow is the deadline so I will be creating the README and performing a lot of code cleanup
     * A few features I would like to add if time permits are a small main menu for changing the theme and possibly the ability to generate charts with user selected time intervals, however im not sure if this is possible with my low API request limit
