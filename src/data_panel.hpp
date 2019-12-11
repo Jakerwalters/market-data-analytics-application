@@ -21,6 +21,7 @@ public:
 	/*
 	 * methods for setting up the gui
 	 */
+	void SetEnviromentVariables();
 	void SetupDataPanelGui(int x, int y);
 	void DrawPanel();
 	void DrawThumbnail();
@@ -29,6 +30,7 @@ public:
 	void ToggleThumbnail(bool panel_enabled);
 	void PopulateDataSection();
 	void PopulateNewsSection();
+	
 	
 	// Event listeners
 	void OnDropdownEvent(ofxDatGuiDropdownEvent e);

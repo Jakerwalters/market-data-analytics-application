@@ -15,7 +15,29 @@ DataPanel::DataPanel() {
 	this->thumbnail_image_url_ = "";
 }
 
+void DataPanel::SetEnviromentVariables() {
+	// *** CHANGE THIS PATH TO YOUR DIRECTORY ***
+  std::string user_info_file_path = "/Users/jakewalters/documents/FantasticFinaleProject/fantastic-finale-Jakerwalters/bin/user_information.txt";
+  
+  // Load in API keys and path to data file
+  // Load values from file
+	std::ifstream input(user_info_file_path);
+	std::string line;
+  std::vector<std::string> user_info;
+	
+	while (std::getline(input, line)) {
+    user_info.push_back(line);
+	}
+  
+	setenv("STOCK_KEY", user_info.at(0).c_str(), 1);
+  setenv("NEWS_KEY", user_info.at(1).c_str(), 1);
+  setenv("DATA_PATH", user_info.at(2).c_str(), 1);
+}
+
 void DataPanel::SetupDataPanelGui(int x, int y) {
+	// Set the environment variables to allow API access
+	SetEnviromentVariables();
+	
 	// Create gui
 	data_panel_gui = new ofxDatGui();
 	data_panel_gui->setPosition(x, y);
@@ -187,8 +209,8 @@ void DataPanel::ToggleThumbnail(bool panel_enabled) {
 }
 
 void DataPanel::PopulateDataSection() {
-	std::string api_key = "1bMckVuNko95sGvwrTiHHzSLssOpx6MIKtdufXvbLeKAMfwrNje9QFjjwTl5";
-	std::string file_path = "/Users/jakewalters/documents/FantasticFinaleProject/fantastic-finale-Jakerwalters/bin/datafile.json";
+	std::string api_key = getenv("STOCK_KEY");
+	std::string file_path = getenv("DATA_PATH");
 	std::string user_input = ticker_input->getText();
 	
 	// Make sure the user's ticker is all uppercase
@@ -223,8 +245,8 @@ void DataPanel::PopulateDataSection() {
 }
 
 void DataPanel::PopulateNewsSection() {
-	std::string api_key = "wgzdje0evkiqpg2m0we4crcenhjtib0hc9vrwanw";
-	std::string file_path = "/Users/jakewalters/documents/FantasticFinaleProject/fantastic-finale-Jakerwalters/bin/datafile.json";
+	std::string api_key = getenv("NEWS_KEY");
+	std::string file_path = getenv("DATA_PATH");
 	std::string user_input = ticker_input->getText();
 	
 	// Make sure the user's ticker is all uppercase
