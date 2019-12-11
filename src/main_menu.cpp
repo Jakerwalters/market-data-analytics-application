@@ -28,7 +28,8 @@ void MenuGui::SetupMenuGui() {
 	menu_gui->addBreak();
 	
 	// Create dropdown menu for choosing a theme
-	std::vector<std::string> theme_options = {"Smoke", "Wireframe", "Midnight", "Aqua", "Charcoal", "Autumn", "Candy"};
+	std::vector<std::string> theme_options = {"Smoke", "Wireframe", "Midnight", "Aqua",
+																						"Charcoal", "Autumn", "Candy"};
 	theme_dropdown = menu_gui->addDropdown("Select Theme Type", theme_options);
 	theme_dropdown->onDropdownEvent(this, &MenuGui::OnDropdownEvent);
 	menu_gui->addBreak();

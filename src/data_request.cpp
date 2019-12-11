@@ -12,7 +12,8 @@ void RequestData(std::string data_url, std::string path) {
 	ofSaveURLTo(data_url, file_path);
 }
 
-std::string ObtainTickerValue(std::string api_key, std::string ticker, std::string key, std::string file_path) {
+std::string ObtainTickerValue(std::string api_key, std::string ticker,
+															std::string key, std::string file_path) {
 	std::string data_url = "https://api.worldtradingdata.com/api/v1/stock?symbol=" + ticker + "&api_token=" + api_key;
 	std::string formatted_key = "\"" + key + "\"";
 	
@@ -24,12 +25,19 @@ std::string ObtainTickerValue(std::string api_key, std::string ticker, std::stri
 	nlohmann::json file;
 	jsonFile >> file;
 	
+	// Check for call errors
+	if (file.contains("Message")) {
+		std::string error_message = "API error";
+		return error_message;
+	}
+	
 	// Retrieve the "data" object
 	nlohmann::json data = file["data"];
 	return data[0].at(key);
 }
 
-std::map<std::string, std::string> ObtainAllTickerValues(std::string api_key, std::string ticker, std::string file_path) {
+std::map<std::string, std::string> ObtainAllTickerValues(std::string api_key, std::string ticker,
+																												 std::string file_path) {
 	std::string data_url = "https://api.worldtradingdata.com/api/v1/stock?symbol=" + ticker + "&api_token=" + api_key;
 	
 	// Request the data from the API
@@ -39,6 +47,13 @@ std::map<std::string, std::string> ObtainAllTickerValues(std::string api_key, st
 	std::ifstream jsonFile(file_path);
 	nlohmann::json file;
 	jsonFile >> file;
+	
+	// Check for call errors
+	if (file.contains("message")) {
+		std::map<std::string, std::string> error_messages;
+		error_messages.insert(std::pair<std::string, std::string>("message", file.at("message")));
+		return error_messages;
+	}
 	
 	// Retrieve all values from the "data" object
 	std::map<std::string, std::string> values;
@@ -54,7 +69,9 @@ std::map<std::string, std::string> ObtainAllTickerValues(std::string api_key, st
 	return values;
 }
 
-std::map<std::string, std::string> ObtainTickerIntraday(std::string api_key, std::string ticker, std::string file_path, int day_range, int time_interval) {
+std::map<std::string, std::string> ObtainTickerIntraday(std::string api_key, std::string ticker,
+																												std::string file_path, int day_range,
+																												int time_interval) {
 	std::string formatted_day_range = std::to_string(day_range);
 	std::string formatted_time_interval = std::to_string(time_interval);
 	//std::string data_url = "https://intraday.worldtradingdata.com/api/v1/intraday?symbol=" + ticker + "&range=" + formatted_day_range + "&interval=" + formatted_time_interval + "&api_token=" + api_key;
@@ -67,6 +84,13 @@ std::map<std::string, std::string> ObtainTickerIntraday(std::string api_key, std
 	std::ifstream jsonFile(file_path);
 	nlohmann::json file;
 	jsonFile >> file;
+	
+	// Check for call errors
+	if (file.contains("message")) {
+		std::map<std::string, std::string> error_messages;
+		error_messages.insert(std::pair<std::string, std::string>("message", file.at("message")));
+		return error_messages;
+	}
 	
 	// Use the system time to make calls to the API
 	std::string current_system_time = CurrentDateTime();
@@ -141,7 +165,8 @@ std::map<std::string, std::string> ObtainTickerIntraday(std::string api_key, std
 			current_hour_formatted = std::to_string(current_hour);
 			
 			if (current_hour < 10) {
-				decremented_time.replace(11, 7, "0" + current_hour_formatted + ":" + current_minute_formatted + ":" + "0");
+				decremented_time.replace(11, 7, "0" + current_hour_formatted
+																 + ":" + current_minute_formatted + ":" + "0");
 				request_time = decremented_time;
 			} else {
 				decremented_time.replace(11, 2, current_hour_formatted);
@@ -150,7 +175,8 @@ std::map<std::string, std::string> ObtainTickerIntraday(std::string api_key, std
 			}
 			
 			nlohmann::json current_day_data = all_data.at(request_time);
-			values.insert(std::pair<std::string, std::string>(request_time, current_day_data.at("close")));
+			values.insert(std::pair<std::string, std::string>(request_time,
+																												current_day_data.at("close")));
 		}
 	}
 
@@ -177,4 +203,39 @@ std::string CurrentDateTime() {
 	formatted_date_time.resize(19, '0');
 	
 	return formatted_date_time;
+}
+
+std::vector<std::string> ObtainTickerNews(std::string api_key, std::string ticker,
+																					std::string file_path, int items) {
+	std::string formatted_items = std::to_string(items);
+	std::string data_url = "https://stocknewsapi.com/api/v1?tickers=" + ticker + "&items=" + formatted_items + "&token=" + api_key;
+	
+	// Request the data from the API
+	RequestData(data_url, file_path);
+	
+	// Load the json file into a json object
+	std::ifstream jsonFile(file_path);
+	nlohmann::json file;
+	jsonFile >> file;
+	
+	// Check for call errors
+	if (file.contains("error")) {
+		std::vector<std::string> error_messages;
+		error_messages.push_back("API error");
+		return error_messages;
+	}
+	
+	// Extract the specific values needed
+	nlohmann::json all_data = file["data"];
+	nlohmann::json article = all_data[0];
+	std::string article_url = article.at("news_url");
+	std::string article_title = article.at("title");
+	std::string article_image_url = article.at("image_url");
+	
+	std::vector<std::string> values;
+	values.push_back(article_url);
+	values.push_back(article_title);
+	values.push_back(article_image_url);
+	
+	return values;
 }

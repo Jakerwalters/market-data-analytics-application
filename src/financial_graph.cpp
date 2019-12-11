@@ -42,11 +42,23 @@ void FinancialGraph::UpdateFinancialGraph(bool gui_expanded, bool type_dropdown_
 	}
 }
 
-void FinancialGraph::DrawFinancialGraph(std::string api_key, std::string ticker, std::string file_path, int day_range, int time_interval, double open_price) {
-	std::map<std::string, std::string> values = ObtainTickerIntraday(api_key, ticker, file_path, day_range, time_interval);
-	fin_graph->add(0);
+bool FinancialGraph::DrawFinancialGraph(std::string api_key, std::string ticker, std::string file_path,
+																				int day_range, int time_interval, double open_price) {
+	std::map<std::string, std::string> values = ObtainTickerIntraday(api_key, ticker, file_path,
+																																	 day_range, time_interval);
 	
-	for (auto itr = values.begin(); itr != values.end(); itr++) {
-		fin_graph->add((1 - (std::stod(itr->second) / open_price)) * 100);
+	// Check for call errors
+	if (values.count("message") > 0) {
+		return false;
+	} else {
+		for (auto itr = values.begin(); itr != values.end(); itr++) {
+			fin_graph->add((1 - (std::stod(itr->second) / open_price)) * 100, std::stod(itr->second));
+		}
+		
+		return true;
 	}
+}
+
+void FinancialGraph::ClearFinancialGraph() {
+	fin_graph->clear();
 }

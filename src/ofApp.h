@@ -6,6 +6,7 @@
 #include "main_menu.hpp"
 #include "data_panel.hpp"
 #include "financial_graph.hpp"
+#include "ofImage.h"
 
 class ofApp : public ofBaseApp{
 

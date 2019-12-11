@@ -8,9 +8,6 @@ void ofApp::setup(){
 	ofSetFrameRate(60);
 	ofSetWindowPosition(0, 0);
 	
-	// Setup the main menu gui
-	menu.SetupMenuGui();
-	
 	// Setup the data panels
 	left_panel.SetupDataPanelGui(0, 0);
 	center_panel.SetupDataPanelGui(400, 0);

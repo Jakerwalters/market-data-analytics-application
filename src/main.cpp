@@ -10,14 +10,12 @@
 #define DISPLAY_MODE OF_WINDOW
 
 int main() {
-	// setup the GL context
-	//ofSetupOpenGL(640, 480, DISPLAY_MODE);
-	
+	// Configure the window settings
 	ofGLFWWindowSettings settings;
 	settings.resizable = false;
 	settings.setSize(1200, 800);
 	ofCreateWindow(settings);
 	
-	// this kicks off the running of my app
+	// This kicks off the running of my app
 	ofRunApp(new ofApp());
 }
