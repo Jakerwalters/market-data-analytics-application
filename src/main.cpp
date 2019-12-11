@@ -1,16 +1,11 @@
 #include "ofApp.h"
 #include "ofMain.h"
-#include <iostream>
-#include <fstream>
-#include "data_request.hpp"
-#include <chrono>
-#include <ctime>
-#include "time.h"
 
 #define DISPLAY_MODE OF_WINDOW
 
 int main() {
 	// Configure the window settings
+  // Application currently does not support resizing
 	ofGLFWWindowSettings settings;
 	settings.resizable = false;
 	settings.setSize(1200, 800);

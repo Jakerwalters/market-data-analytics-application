@@ -13,13 +13,13 @@ MenuGui::MenuGui() {
 
 void MenuGui::SetupMenuGui() {
 	// Create gui
-	menu_gui = new ofxDatGui(ofxDatGuiAnchor::BOTTOM_RIGHT);
+	menu_gui = new ofxDatGui(ofxDatGuiAnchor::TOP_RIGHT);
 	menu_gui->addHeader("Main Menu")->setDraggable(false);
 	menu_gui->addFooter();
 	menu_gui->getFooter()->setLabelWhenExpanded("Minimize Main Menu");
 	menu_gui->getFooter()->setLabelWhenCollapsed("Maximize Main Menu");
 	menu_gui->addBreak();
-	menu_gui->setWidth(400);
+	menu_gui->setWidth(kMenuWidth);
 	
 	// Create dropdown menu for choosing to create a new stock or crypto panel
 	std::vector<std::string> panel_options = {"Stock", "Crypto"};

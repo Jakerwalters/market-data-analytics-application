@@ -15,7 +15,6 @@ void RequestData(std::string data_url, std::string path) {
 std::string ObtainTickerValue(std::string api_key, std::string ticker,
 															std::string key, std::string file_path) {
 	std::string data_url = "https://api.worldtradingdata.com/api/v1/stock?symbol=" + ticker + "&api_token=" + api_key;
-	std::string formatted_key = "\"" + key + "\"";
 	
 	// Request the data from the API
 	RequestData(data_url, file_path);
@@ -74,8 +73,7 @@ std::map<std::string, std::string> ObtainTickerIntraday(std::string api_key, std
 																												int time_interval) {
 	std::string formatted_day_range = std::to_string(day_range);
 	std::string formatted_time_interval = std::to_string(time_interval);
-	//std::string data_url = "https://intraday.worldtradingdata.com/api/v1/intraday?symbol=" + ticker + "&range=" + formatted_day_range + "&interval=" + formatted_time_interval + "&api_token=" + api_key;
-	std::string data_url = "https://intraday.worldtradingdata.com/api/v1/intraday?symbol=SNAP&range=1&interval=1&api_token=demo";
+	std::string data_url = "https://intraday.worldtradingdata.com/api/v1/intraday?symbol=" + ticker + "&range=" + formatted_day_range + "&interval=" + formatted_time_interval + "&api_token=" + api_key;
 	
 	// Request the data from the API
 	RequestData(data_url, file_path);
@@ -156,6 +154,7 @@ std::map<std::string, std::string> ObtainTickerIntraday(std::string api_key, std
 				current_minute--;
 			}
 			
+			// Account for single digit minutes
 			if (current_minute < 10) {
 				current_minute_formatted = "0" + std::to_string(current_minute);
 			} else {
@@ -164,6 +163,7 @@ std::map<std::string, std::string> ObtainTickerIntraday(std::string api_key, std
 			
 			current_hour_formatted = std::to_string(current_hour);
 			
+			// Account for single digit hours
 			if (current_hour < 10) {
 				decremented_time.replace(11, 7, "0" + current_hour_formatted
 																 + ":" + current_minute_formatted + ":" + "0");

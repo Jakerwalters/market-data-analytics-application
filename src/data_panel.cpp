@@ -6,7 +6,6 @@
 //
 
 #include "data_panel.hpp"
-#include "data_request.hpp"
 
 DataPanel::DataPanel() {
 	// Set the ticker type to stock by defualt and expand the panel
@@ -16,11 +15,10 @@ DataPanel::DataPanel() {
 }
 
 void DataPanel::SetEnviromentVariables() {
-	// *** CHANGE THIS PATH TO YOUR DIRECTORY ***
+	// *** CHANGE THIS PATH TO YOUR DIRECTORY *** <------------
   std::string user_info_file_path = "/Users/jakewalters/documents/FantasticFinaleProject/fantastic-finale-Jakerwalters/bin/user_information.txt";
   
-  // Load in API keys and path to data file
-  // Load values from file
+  // Load in API keys and path to JSON data file
 	std::ifstream input(user_info_file_path);
 	std::string line;
   std::vector<std::string> user_info;
@@ -67,6 +65,8 @@ void DataPanel::SetupDataPanelGui(int x, int y) {
 	// Create a button to clear the data panel
 	clear_button = data_panel_gui->addButton("Clear");
   clear_button->onButtonEvent(this, &DataPanel::OnButtonEvent);
+	
+	// Add a large break for the graph
 	for (int index = 0; index < kGraphSpaces_; index++) {
 		data_panel_gui->addBreak();
 	}
@@ -130,7 +130,7 @@ void DataPanel::OnButtonEvent(ofxDatGuiButtonEvent e) {
 			PopulateNewsSection();
 		}
 	} else if (e.target == search_button && this->ticker_type_ == "Crypto") {
-		ticker_input->setText("Cryptocurrency support coming soon");
+		ticker_input->setText("Crypto support coming soon");
 	} else if (e.target == clear_button) {
 		ticker_input->setText("");
 		name_label->setLabel("Name: ");
@@ -225,22 +225,24 @@ void DataPanel::PopulateDataSection() {
 		ticker_input->setText("Invalid ticker try again");
 	} else {
 		//Draw the graph
-		std::cout << "open price: " << open_price_value << std::endl;
 		double open_price = std::stod(open_price_value);
 		
+		// Application currently only supports graphing for 1 day of data with 1 minute intervals
 		if (!(fin_graph->DrawFinancialGraph(api_key, user_input, file_path, 1, 1, open_price))) {
 			ticker_input->setText("Intraday API Error");
 		}
 		
+		std::map<std::string, std::string> values = ObtainAllTickerValues(api_key, user_input, file_path);
+		
 		// Output the data to the output label
-		//		name_label->setLabel("Name: " + ObtainTickerValue(api_key, user_input, "name", file_path));
-		//		price_label->setLabel("Current Price: " + ObtainTickerValue(api_key, user_input, "price", file_path));
-		//		day_high_label->setLabel("Day High: " + ObtainTickerValue(api_key, user_input, "day_high", file_path));
-		//		day_low_label->setLabel("Day Low: " + ObtainTickerValue(api_key, user_input, "day_low", file_path));
-		//		year_high_label->setLabel("Year High: " + ObtainTickerValue(api_key, user_input, "52_week_high", file_path));
-		//		year_low_label->setLabel("Year Low: " + ObtainTickerValue(api_key, user_input, "52_week_low", file_path));
-		//		day_change_label->setLabel("Day Change $: " + ObtainTickerValue(api_key, user_input, "day_change", file_path));
-		//		day_change_pct_label->setLabel("Day Change %: " + ObtainTickerValue(api_key, user_input, "change_pct", file_path));
+		name_label->setLabel("Name: " + values.at("name"));
+		price_label->setLabel("Current Price: " + values.at("price"));
+		day_high_label->setLabel("Day High: " + values.at("day_high"));
+		day_low_label->setLabel("Day Low: " + values.at("day_low"));
+		year_high_label->setLabel("Year High: " + values.at("52_week_high"));
+		year_low_label->setLabel("Year Low: " + values.at("52_week_low"));
+		day_change_label->setLabel("Day Change $: " + values.at("day_change"));
+		day_change_pct_label->setLabel("Day Change %: " + values.at("change_pct"));
 	}
 }
 

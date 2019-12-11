@@ -10,16 +10,12 @@
 #include "ofMain.h"
 #include "ofxDatGui.h"
 
+// Main menu is not used in the current build of the application
 class MenuGui {
 public:
-	/*
-	 * Default constructor
-	 */
 	MenuGui();
 	
-	/*
-	 * Method for setting up the gui
-	 */
+	// Method for adding properties to all the elements which comprise the menu gui
 	void SetupMenuGui();
 	
 	// Event listeners
@@ -29,4 +25,7 @@ public:
 	ofxDatGui* menu_gui;
 	ofxDatGuiDropdown* panel_type_dropdown;
 	ofxDatGuiDropdown* theme_dropdown;
+	
+private:
+	const int kMenuWidth = 240;
 };

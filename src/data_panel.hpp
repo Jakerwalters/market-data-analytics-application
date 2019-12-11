@@ -13,24 +13,34 @@
 
 class DataPanel {
 public:
-	/*
-	 * Default constructor
-	 */
 	DataPanel();
 	
-	/*
-	 * methods for setting up the gui
-	 */
+	// Method for setting enviroment variables from the user_information file
 	void SetEnviromentVariables();
-	void SetupDataPanelGui(int x, int y);
-	void DrawPanel();
-	void DrawThumbnail();
-	void UpdatePanel();
-	void ToggleGraphAxis(bool panel_enabled, bool dropdown_enabled);
-	void ToggleThumbnail(bool panel_enabled);
-	void PopulateDataSection();
-	void PopulateNewsSection();
 	
+	// Method for adding properties to all the elements which comprise the gui
+	void SetupDataPanelGui(int x, int y);
+	
+	// Method for drawing the panel
+	void DrawPanel();
+	
+	// Method for drawing the thumbnail of an image related to a displayed news article
+	void DrawThumbnail();
+	
+	// Method for updating the panel each frame
+	void UpdatePanel();
+	
+	// Method for hiding and shifting the axis at y = 0 on the graph
+	void ToggleGraphAxis(bool panel_enabled, bool dropdown_enabled);
+	
+	// Method for hiding and shifting the news article image thumbnail
+	void ToggleThumbnail(bool panel_enabled);
+	
+	// Method for calling functions in the data_request header to fill data section elements
+	void PopulateDataSection();
+	
+	// Method for calling functions in the data_request header to fill news section elements
+	void PopulateNewsSection();
 	
 	// Event listeners
 	void OnDropdownEvent(ofxDatGuiDropdownEvent e);
