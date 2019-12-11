@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<Options>
+	<Buffer>128</Buffer>
+	<Pause>0</Pause>
+	<No_Draw>0</No_Draw>
+	<Auto_Scale>0</Auto_Scale>
+	<Y-Max>1</Y-Max>
+</Options>

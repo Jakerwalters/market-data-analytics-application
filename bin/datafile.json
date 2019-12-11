@@ -1,0 +1,18 @@
+{
+    "data": [
+        {
+            "news_url": "https://www.forbes.com/sites/isabeltogoh/2019/12/11/facebook-promises-it-has-fixed-glitch-that-caused-political-ads-to-disappear-days-ahead-of-uk-election/",
+            "image_url": "https://cdn.snapi.dev/images/v1/f/b/fb63-2.jpg",
+            "title": "Facebook Promises It Has Fixed Glitch That Caused Political Ads To Disappear Days Ahead Of U.K. Election",
+            "text": "Amid scrutiny over political ad transparency, Facebook\u2019s system for tracking ad buying and targeting faltered just days ahead of the U.K. general election.",
+            "source_name": "Forbes",
+            "date": "Wed, 11 Dec 2019 12:50:03 -0500",
+            "topics": [],
+            "sentiment": "Neutral",
+            "type": "Article",
+            "tickers": [
+                "FB"
+            ]
+        }
+    ]
+}
