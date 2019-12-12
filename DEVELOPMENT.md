@@ -79,3 +79,7 @@
     * Tomorrow is the deadline so I will be creating the README and performing a lot of code cleanup
     * A few features I would like to add if time permits are a small main menu for changing the theme and possibly the ability to generate charts with user selected time intervals, however im not sure if this is possible with my low API request limit
     
+* **12/11/19** Write README and finalize project
+    * Wrote the readme for the project to resemble the example provided by the cs126 website
+    * Had a ton of trouble getting custom addon files to commit to the repository because they were over 100 files large so I could not add them through the website and something is severely broken with my commandline git which gives errors whenever I try to push the files through the commandline
+    * Did code cleanup and finalized some code small changes
