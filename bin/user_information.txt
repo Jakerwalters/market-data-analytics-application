@@ -1,0 +1,3 @@
+// Your World Trading Data API key on this line
+// Your Stock News API key on this line
+// the exact file path to the datafile.json on this line
