@@ -12,6 +12,31 @@
 
 * Copy and paste the folders ofxDatGui-master and ofxGraph-master into the addons folder of the OpenFrameworks directory
 * **Note: you must use the addons specifically in this repository as they contain extra functions that their respective  public release versions do not**
+
+* to the file ofxDatGui.hpp add the function
+```C++
+bool getExpanded();
+```
+
+* to the file ofxDatGui.cpp add the function
+
+```C++
+bool ofxDatGui::getExpanded() {
+  return mExpanded;
+}
+```
+
+* to the file ofxDatGuiGroups.h add the function
+```C++
+bool getExpanded() {return mIsExpanded;}
+```
+
+* to the file ofxGraph.cpp add set the following values
+```C++
+max_length_of_data = 450; 
+panel.add(slider_bufsize.setup("BufSize", 450, 32, 512));
+```
+
 * Launch OpenFrameworks project generator
     * Set Project Name to "fantastic-finale-Jakerwalters"
     * Set Project Path to the directory where you have saved the file
