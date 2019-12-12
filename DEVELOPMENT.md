@@ -82,4 +82,4 @@
 * **12/11/19** Write README and finalize project
     * Wrote the readme for the project to resemble the example provided by the cs126 website
     * Had a ton of trouble getting custom addon files to commit to the repository because they were over 100 files large so I could not add them through the website and something is severely broken with my commandline git which gives errors whenever I try to push the files through the commandline
-    * Did code cleanup and finalized some code small changes
+    * Did code cleanup and finalized some small code changes
